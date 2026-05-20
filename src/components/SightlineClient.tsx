@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Upload, Send, History, Menu, X, LogIn, Loader2, Link as LinkIcon, PanelLeftClose, PanelLeftOpen } from "lucide-react"
 import { createClient } from "@/utils/supabase/client"
 import { User } from "@supabase/supabase-js"
+import ReactMarkdown from "react-markdown"
 
 interface Query {
   id: string;
@@ -281,9 +282,19 @@ export default function SightlineClient({ user }: { user: User }) {
                     <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-2">
                       Q: {ans.question}
                     </div>
-                    <p className="text-foreground leading-relaxed text-sm sm:text-base">
-                      {ans.answer}
-                    </p>
+                    <div className="text-foreground leading-relaxed text-sm sm:text-base">
+                      <ReactMarkdown
+                        components={{
+                          p: ({node, ...props}) => <p className="mb-4 last:mb-0" {...props} />,
+                          ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-4 space-y-1" {...props} />,
+                          ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-4 space-y-1" {...props} />,
+                          li: ({node, ...props}) => <li className="" {...props} />,
+                          strong: ({node, ...props}) => <strong className="font-semibold text-foreground" {...props} />
+                        }}
+                      >
+                        {ans.answer}
+                      </ReactMarkdown>
+                    </div>
                   </motion.div>
                 ))}
                 <div ref={messagesEndRef} className="h-4" />
