@@ -34,9 +34,9 @@ export default function LoginOverlay() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 relative overflow-hidden">
       {/* Dynamic Aurora Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] animate-pulse duration-1000" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-secondary/40 rounded-full blur-[120px] animate-pulse duration-1000 delay-500" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 transform-gpu">
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] animate-pulse duration-1000 transform-gpu" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-secondary/40 rounded-full blur-[120px] animate-pulse duration-1000 delay-500 transform-gpu" />
       </div>
 
       <motion.div 
