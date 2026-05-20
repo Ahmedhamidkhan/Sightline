@@ -26,6 +26,20 @@
   --radius-lg: 0.5rem;
   --radius-md: calc(0.5rem - 2px);
   --radius-sm: calc(0.5rem - 4px);
+
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+
+  --animate-aurora: aurora 60s linear infinite;
+  
+  @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
 }
 
 @layer base {

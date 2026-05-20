@@ -194,7 +194,7 @@ export default function SightlineClient({ user }: { user: User }) {
             groupedHistory.map((item) => (
               <div 
                 key={item.id} 
-                className="p-3 rounded-xl bg-secondary/30 border border-border/50 hover:bg-secondary/50 transition-colors cursor-pointer group" 
+                className="p-3 rounded-xl bg-secondary/30 border border-border/50 hover:bg-secondary/80 transition-all duration-300 hover:translate-x-1 hover:shadow-md cursor-pointer group" 
                 onClick={() => {
                   // Reverse to show oldest first in chat view
                   setCurrentAnswers([...item.all_queries].reverse())
@@ -251,7 +251,7 @@ export default function SightlineClient({ user }: { user: User }) {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 pb-40 sm:pb-40">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-2">
               <h1 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase hidden sm:block mb-8">Sightline.</h1>
@@ -281,7 +281,7 @@ export default function SightlineClient({ user }: { user: User }) {
                     key={ans.id || idx}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="w-full bg-secondary/20 border border-border rounded-2xl overflow-hidden shadow-sm p-6 sm:p-8 space-y-4"
+                    className="w-full bg-secondary/20 border border-border rounded-2xl overflow-hidden shadow-sm p-6 sm:p-8 space-y-4 hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 transition-all duration-300"
                   >
                     <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-2">
                       Q: {ans.question}
@@ -310,7 +310,7 @@ export default function SightlineClient({ user }: { user: User }) {
               <div 
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
-                className={`group relative rounded-2xl border-2 border-dashed border-muted bg-secondary/30 hover:border-primary/50 hover:bg-secondary/50 p-2 text-center transition-all cursor-pointer overflow-hidden min-h-[300px] flex items-center justify-center`}
+                className={`group relative rounded-2xl border-2 border-dashed border-muted bg-secondary/30 hover:border-primary/50 hover:bg-secondary/50 p-2 text-center transition-all duration-300 cursor-pointer overflow-hidden min-h-[300px] flex items-center justify-center hover:scale-[1.01] hover:shadow-lg`}
               >
                 <input 
                   ref={fileInputRef}
@@ -333,16 +333,16 @@ export default function SightlineClient({ user }: { user: User }) {
           </div>
         </div>
 
-        {/* Persistent Input Form at Bottom */}
-        <div className="flex-shrink-0 p-4 sm:p-8 bg-background border-t border-border z-10">
-          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
+        {/* Persistent Input Form at Bottom (Floating Pill) */}
+        <div className="absolute bottom-6 left-0 right-0 z-20 px-4 pointer-events-none">
+          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto pointer-events-auto">
             {error && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-4 p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-sm text-center">
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-4 p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-sm text-center shadow-lg">
                 {error}
               </motion.div>
             )}
 
-            <div className="relative rounded-xl border border-border bg-card shadow-lg flex flex-col sm:flex-row items-stretch sm:items-center focus-within:ring-2 focus-within:ring-primary/20 transition-all p-1">
+            <div className="relative rounded-2xl glass shadow-2xl flex flex-col sm:flex-row items-stretch sm:items-center focus-within:ring-2 focus-within:ring-primary/20 transition-all p-2">
               {/* Only show URL input if no image is currently active */}
               {!previewUrl && currentAnswers.length === 0 && (
                 <div className="flex items-center flex-1 border-b sm:border-b-0 sm:border-r border-border pb-1 sm:pb-0 px-2">

@@ -33,9 +33,11 @@ export default function LoginOverlay() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px] opacity-50" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[128px] opacity-50" />
+      {/* Dynamic Aurora Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] animate-pulse duration-1000" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-secondary/40 rounded-full blur-[120px] animate-pulse duration-1000 delay-500" />
+      </div>
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -52,7 +54,7 @@ export default function LoginOverlay() {
           >
             <Sparkles className="w-8 h-8 text-primary" />
           </motion.div>
-          <h1 className="text-4xl font-black tracking-tighter uppercase text-foreground">Sightline.</h1>
+          <h1 className="text-4xl font-black tracking-tighter uppercase text-foreground font-heading">Sightline.</h1>
           <p className="text-sm text-muted-foreground">Sign in to access the vision portal.</p>
         </div>
 
