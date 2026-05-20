@@ -41,7 +41,7 @@ export default function LoginOverlay() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md space-y-8 glass p-8 sm:p-12 rounded-3xl relative z-10 border border-white/5"
+        className="w-full max-w-md space-y-8 glass p-8 sm:p-12 rounded-3xl relative z-10 border border-border"
       >
         <div className="text-center space-y-3">
           <motion.div

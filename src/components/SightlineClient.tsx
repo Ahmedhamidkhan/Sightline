@@ -260,7 +260,7 @@ export default function SightlineClient({ user }: { user: User }) {
             {/* Current Answers Flow */}
             {(currentAnswers.length > 0 || previewUrl) && (
               <div className="space-y-6">
-                <div className="w-full h-64 sm:h-96 rounded-2xl overflow-hidden bg-black/50 border border-border shadow-sm relative group">
+                <div className="w-full h-64 sm:h-96 rounded-2xl overflow-hidden bg-muted border border-border shadow-sm relative group">
                   <img src={previewUrl || (currentAnswers.length > 0 ? currentAnswers[0].image_url : '')} alt="Analyzed" className="w-full h-full object-contain" />
                   <button 
                     type="button"
