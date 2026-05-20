@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Upload, Send, History, Menu, X, LogIn, Loader2, Link as LinkIcon, PanelLeftClose, PanelLeftOpen } from "lucide-react"
 import { createClient } from "@/utils/supabase/client"
+import { ThemeToggle } from "./ThemeToggle"
 import { User } from "@supabase/supabase-js"
 import ReactMarkdown from "react-markdown"
 
@@ -244,6 +245,9 @@ export default function SightlineClient({ user }: { user: User }) {
               </button>
             )}
             <h1 className="text-xl font-bold tracking-tighter uppercase sm:hidden">Sightline</h1>
+          </div>
+          <div className="flex items-center">
+            <ThemeToggle />
           </div>
         </header>
 
