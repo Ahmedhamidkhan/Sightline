@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Upload, Send, History, Menu, X, LogIn, Loader2, Link as LinkIcon, PanelLeftClose, PanelLeftOpen, Trash2 } from "lucide-react"
+import { Upload, Send, History, Menu, X, LogIn, Loader2, Link as LinkIcon, PanelLeftClose, PanelLeftOpen, Trash2, Plus } from "lucide-react"
 import { createClient } from "@/utils/supabase/client"
 import { ThemeToggle } from "./ThemeToggle"
 import { User } from "@supabase/supabase-js"
@@ -209,6 +209,24 @@ export default function SightlineClient({ user }: { user: User }) {
             <PanelLeftClose className="w-5 h-5" />
           </button>
         </div>
+        
+        {/* NEW CHAT BUTTON */}
+        <div className="p-4 pb-0 min-w-[320px]">
+          <button 
+            onClick={() => {
+              setCurrentAnswers([])
+              setPreviewUrl(null)
+              setFile(null)
+              setImageUrl("")
+              if(window.innerWidth < 640) setIsSidebarOpen(false)
+            }}
+            className="w-full flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-4 py-3 text-sm font-semibold hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-md"
+          >
+            <Plus className="w-5 h-5" />
+            New Chat
+          </button>
+        </div>
+
         <div className="flex-1 overflow-y-auto p-4 space-y-4 min-w-[320px]">
           {groupedHistory.length === 0 ? (
             <div className="text-center text-sm text-muted-foreground mt-10">
@@ -293,18 +311,6 @@ export default function SightlineClient({ user }: { user: User }) {
               <div className="space-y-6">
                 <div className="w-full h-64 sm:h-96 rounded-2xl overflow-hidden bg-muted border border-border shadow-sm relative group">
                   <img src={previewUrl || (currentAnswers.length > 0 ? currentAnswers[0].image_url : '')} alt="Analyzed" className="w-full h-full object-contain" />
-                  <button 
-                    type="button"
-                    onClick={() => {
-                      setCurrentAnswers([])
-                      setPreviewUrl(null)
-                      setFile(null)
-                      setImageUrl("")
-                    }}
-                    className="absolute top-4 right-4 p-2 bg-background/80 backdrop-blur-md rounded-full text-foreground hover:bg-background transition-colors opacity-0 group-hover:opacity-100"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
                 </div>
                 
                 {currentAnswers.map((ans, idx) => (
