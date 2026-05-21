@@ -32,6 +32,7 @@ export default function SightlineClient({ user }: { user: User }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [currentAnswers, setCurrentAnswers] = useState<Query[]>([])
+  const [deletingId, setDeletingId] = useState<string | null>(null)
 
   const supabase = createClient()
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -254,13 +255,33 @@ export default function SightlineClient({ user }: { user: User }) {
                       <p className="text-xs text-muted-foreground truncate">{item.all_queries.length} interaction{item.all_queries.length > 1 ? 's' : ''}</p>
                     </div>
                   </div>
-                  <button 
-                    onClick={(e) => handleDeleteHistoryItem(e, item.image_url)}
-                    className="absolute top-1/2 -translate-y-1/2 right-1 text-muted-foreground hover:text-destructive p-2 rounded-md hover:bg-destructive/10 transition-colors opacity-0 group-hover:opacity-100"
-                    title="Delete history"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  {deletingId === item.image_url ? (
+                    <div className="absolute inset-0 bg-background/95 backdrop-blur-sm rounded-xl flex items-center justify-between px-4 text-sm font-medium border border-destructive/50">
+                      <span className="text-foreground">Delete chat?</span>
+                      <div className="flex items-center gap-3">
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); handleDeleteHistoryItem(e, item.image_url); setDeletingId(null); }} 
+                          className="text-destructive hover:underline"
+                        >
+                          Yes
+                        </button>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); setDeletingId(null); }} 
+                          className="text-muted-foreground hover:underline"
+                        >
+                          No
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); setDeletingId(item.image_url); }}
+                      className="absolute top-1/2 -translate-y-1/2 right-1 text-muted-foreground hover:text-destructive p-2 rounded-md hover:bg-destructive/10 transition-colors opacity-0 group-hover:opacity-100"
+                      title="Delete history"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               </div>
             ))
