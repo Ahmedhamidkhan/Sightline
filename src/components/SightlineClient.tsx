@@ -36,7 +36,7 @@ export default function SightlineClient({ user }: { user: User }) {
 
   const supabase = createClient()
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetchHistory()
@@ -48,8 +48,13 @@ export default function SightlineClient({ user }: { user: User }) {
   }, [])
 
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    if (scrollContainerRef.current) {
+      // Use smooth scroll on the specific container to prevent mobile viewport jumping
+      const scrollHeight = scrollContainerRef.current.scrollHeight;
+      scrollContainerRef.current.scrollTo({
+        top: scrollHeight,
+        behavior: "smooth"
+      });
     }
   }, [currentAnswers])
 
@@ -321,7 +326,7 @@ export default function SightlineClient({ user }: { user: User }) {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8 pb-40 sm:pb-40">
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 sm:p-8 pb-40 sm:pb-40">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-2">
               <h1 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase hidden sm:block mb-8">Sightline.</h1>
@@ -359,7 +364,7 @@ export default function SightlineClient({ user }: { user: User }) {
                     </div>
                   </motion.div>
                 ))}
-                <div ref={messagesEndRef} className="h-4" />
+                <div className="h-4" />
               </div>
             )}
 
