@@ -182,7 +182,7 @@ export default function SightlineClient({ user }: { user: User }) {
   }, {} as Record<string, GroupedQuery>))
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-[100dvh] overflow-hidden bg-background">
       
       {/* Mobile Overlay */}
       {isSidebarOpen && (
