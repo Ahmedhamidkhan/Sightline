@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Upload, Send, History, Menu, X, LogIn, Loader2, Link as LinkIcon, PanelLeftClose, PanelLeftOpen } from "lucide-react"
+import { Upload, Send, History, Menu, X, LogIn, Loader2, Link as LinkIcon, PanelLeftClose, PanelLeftOpen, Trash2 } from "lucide-react"
 import { createClient } from "@/utils/supabase/client"
 import { ThemeToggle } from "./ThemeToggle"
 import { User } from "@supabase/supabase-js"
@@ -64,6 +64,30 @@ export default function SightlineClient({ user }: { user: User }) {
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     window.location.reload()
+  }
+
+  const handleDeleteHistoryItem = async (e: React.MouseEvent, imageUrl: string) => {
+    e.stopPropagation();
+    
+    // Optimistic update
+    setHistory(prev => prev.filter(q => q.image_url !== imageUrl));
+    
+    if (previewUrl === imageUrl || currentAnswers.some(ans => ans.image_url === imageUrl)) {
+      setCurrentAnswers([]);
+      setPreviewUrl(null);
+      setFile(null);
+      setImageUrl("");
+    }
+
+    const { error } = await supabase
+      .from('queries')
+      .delete()
+      .eq('image_url', imageUrl);
+      
+    if (error) {
+      console.error("Failed to delete history item:", error);
+      fetchHistory(); // Revert on failure
+    }
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,14 +228,21 @@ export default function SightlineClient({ user }: { user: User }) {
                   if(window.innerWidth < 640) setIsSidebarOpen(false)
                 }}
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3 relative">
                   <img src={item.image_url} alt="History thumb" className="w-12 h-12 rounded-lg object-cover bg-background shrink-0" />
-                  <div className="flex-1 min-w-0">
+                  <div className="flex-1 min-w-0 pr-6">
                     <p className="text-sm font-medium text-foreground truncate">{item.all_queries[item.all_queries.length - 1].question}</p>
                     <div className="flex items-center justify-between mt-1">
                       <p className="text-xs text-muted-foreground truncate">{item.all_queries.length} interaction{item.all_queries.length > 1 ? 's' : ''}</p>
                     </div>
                   </div>
+                  <button 
+                    onClick={(e) => handleDeleteHistoryItem(e, item.image_url)}
+                    className="absolute top-1/2 -translate-y-1/2 right-1 text-muted-foreground hover:text-destructive p-2 rounded-md hover:bg-destructive/10 transition-colors opacity-0 group-hover:opacity-100"
+                    title="Delete history"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             ))
