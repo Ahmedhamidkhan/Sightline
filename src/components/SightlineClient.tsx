@@ -308,7 +308,7 @@ export default function SightlineClient({ user }: { user: User }) {
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col h-full relative z-0 transition-all duration-300">
-        <header className="flex-shrink-0 flex items-center justify-between p-4 sm:p-6 bg-background/80 backdrop-blur-md border-b border-border z-10">
+        <header className="sticky top-0 flex-shrink-0 flex items-center justify-between p-4 sm:p-6 bg-background/80 backdrop-blur-md border-b border-border z-20">
           <div className="flex items-center gap-3">
             {!isSidebarOpen && (
               <button 
