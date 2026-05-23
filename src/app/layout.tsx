@@ -8,7 +8,7 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
 
 export const metadata: Metadata = {
   title: "SIGHTLINE",
-  description: "A live test of everything you claim to know.",
+  description: "An AI-powered vision assistant that lets you upload images and ask natural language questions.",
 };
 
 export default function RootLayout({
